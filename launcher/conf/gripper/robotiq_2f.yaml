@@ -1,0 +1,4 @@
+_target_: polymetis.robot_client.robotiq_gripper.RobotiqGripperClient
+server_ip: ${ip}
+server_port: ${port}
+comport: /dev/ttyUSB0

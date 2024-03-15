@@ -12,6 +12,8 @@
 #include "pinocchio/algorithm/joint-configuration.hpp"
 #include "pinocchio/algorithm/kinematics.hpp"
 #include "pinocchio/algorithm/rnea.hpp"
+#include "pinocchio/algorithm/crba.hpp"
+#include "pinocchio/algorithm/aba.hpp"
 #include "pinocchio/parsers/sample-models.hpp"
 #include "pinocchio/parsers/urdf.hpp"
 
@@ -92,6 +94,34 @@ void compute_jacobian(
   pinocchio::computeFrameJacobian(model, model_data, joint_positions,
                                   frame_idx_, pinocchio::LOCAL_WORLD_ALIGNED,
                                   J);
+}
+
+Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> compute_inertia(
+    State *state, const Eigen::VectorXd &joint_positions) {
+  auto model = *state->model;
+  auto model_data = *state->model_data;
+  return pinocchio::crba(model, model_data, joint_positions);
+}
+
+void compute_jacobian_mat(
+    State *state, const Eigen::VectorXd &joint_positions,
+    Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic,
+                             Eigen::RowMajor> &J,
+    int64_t frame_idx) {
+  pinocchio::FrameIndex frame_idx_ =
+      static_cast<pinocchio::FrameIndex>(frame_idx);
+  auto model = *state->model;
+  auto model_data = *state->model_data;
+  pinocchio::computeFrameJacobian(model, model_data, joint_positions,
+                                  frame_idx_, pinocchio::LOCAL_WORLD_ALIGNED,
+                                  J);
+}
+
+Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> compute_Minv(
+    State *state, const Eigen::VectorXd &joint_positions) {
+  auto model = *state->model;
+  auto model_data = *state->model_data;
+  return pinocchio::computeMinverse(model, model_data, joint_positions);
 }
 
 Eigen::Matrix<double, Eigen::Dynamic, 1>

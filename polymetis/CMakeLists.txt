@@ -106,6 +106,7 @@ include_directories(
     ${pinocchio_INCLUDE_DIRS}
     "${CMAKE_CURRENT_SOURCE_DIR}/torch_isolation/include"
     "${CMAKE_CURRENT_SOURCE_DIR}/torch_isolation/pinocchio_isolation/include"
+    ${Protobuf_INCLUDE_DIRS}
 )
 
 # Add server

@@ -18,8 +18,8 @@ dependencies:
     - openmpi=2.1.2
     - pinocchio ==2.5.2
     - poco ==1.9.0 # needed by libfranka
-    - python ==3.9
-    - pytorch=2.1.0=py3.9_cuda12.1_cudnn8.9.2_0
+    - python ==3.8
+    - pytorch=2.1.0=py3.8_cuda12.1_cudnn8.9.2_0
     - torchvision
     - pytorch-cuda=12.1
     - urdfdom=2.3.3=hc9558a2_0
